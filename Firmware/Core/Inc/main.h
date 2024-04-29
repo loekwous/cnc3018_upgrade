@@ -49,6 +49,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -57,6 +59,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define STP_Y_DIR_Pin GPIO_PIN_0
+#define STP_Y_DIR_GPIO_Port GPIOC
+#define STP_X_DIR_Pin GPIO_PIN_1
+#define STP_X_DIR_GPIO_Port GPIOC
 #define MOT_SPI_MISO_Pin GPIO_PIN_2
 #define MOT_SPI_MISO_GPIO_Port GPIOC
 #define MOT_SPI_MOSI_Pin GPIO_PIN_3
@@ -67,6 +73,10 @@ void Error_Handler(void);
 #define JS_VRY_GPIO_Port GPIOA
 #define JS_SW_Pin GPIO_PIN_2
 #define JS_SW_GPIO_Port GPIOA
+#define PROBE_0_Pin GPIO_PIN_4
+#define PROBE_0_GPIO_Port GPIOA
+#define PROBE_1_Pin GPIO_PIN_5
+#define PROBE_1_GPIO_Port GPIOA
 #define RS485_RX_Pin GPIO_PIN_5
 #define RS485_RX_GPIO_Port GPIOC
 #define RS485_TX_Pin GPIO_PIN_10
@@ -77,12 +87,28 @@ void Error_Handler(void);
 #define MOT_SPI_SCK_GPIO_Port GPIOB
 #define RS485_EN_Pin GPIO_PIN_14
 #define RS485_EN_GPIO_Port GPIOB
+#define STP_MS1_Pin GPIO_PIN_6
+#define STP_MS1_GPIO_Port GPIOC
+#define WS2812_DI_Pin GPIO_PIN_7
+#define WS2812_DI_GPIO_Port GPIOC
 #define SD_CD_Pin GPIO_PIN_8
 #define SD_CD_GPIO_Port GPIOA
 #define ESP_RX_Pin GPIO_PIN_10
 #define ESP_RX_GPIO_Port GPIOA
 #define ESP_TX_Pin GPIO_PIN_15
 #define ESP_TX_GPIO_Port GPIOA
+#define STP_MS2_Pin GPIO_PIN_10
+#define STP_MS2_GPIO_Port GPIOC
+#define STP_MS3_Pin GPIO_PIN_12
+#define STP_MS3_GPIO_Port GPIOC
+#define STP_Z_STEP_Pin GPIO_PIN_3
+#define STP_Z_STEP_GPIO_Port GPIOB
+#define STP_Y_STEP_Pin GPIO_PIN_4
+#define STP_Y_STEP_GPIO_Port GPIOB
+#define STP_X_STEP_Pin GPIO_PIN_6
+#define STP_X_STEP_GPIO_Port GPIOB
+#define STP_Z_DIR_Pin GPIO_PIN_7
+#define STP_Z_DIR_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
