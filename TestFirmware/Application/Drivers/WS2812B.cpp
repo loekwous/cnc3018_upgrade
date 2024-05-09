@@ -36,9 +36,15 @@ static_assert(WS2812B::NUMBER_OF_PIXELS <= UINT8_MAX, "This number of pixels can
 void WS2812B::Init() {
 
 	Clear();
-	HAL_TIM_PWM_Start_DMA(m_timer, TIM_CHANNEL_3, m_visualBuffer,
-			sizeof(m_visualBuffer) / sizeof(uint32_t));
+	uint32_t *buffer = reinterpret_cast<uint32_t*>(m_visualBuffer.data());
+	HAL_TIM_PWM_Start_DMA(m_timer, TIM_CHANNEL_3, buffer,
+			m_visualBuffer.size());
+}
 
+void WS2812B::DeInit() {
+	if (m_timer->Instance->CR1 & TIM_CR1_CEN) {
+		HAL_TIM_PWM_Stop_DMA(m_timer, TIM_CHANNEL_3);
+	}
 }
 
 void WS2812B::Clear() {

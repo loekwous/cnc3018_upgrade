@@ -60,7 +60,7 @@
 #define CMSIS_device_header "stm32f4xx.h"
 #endif /* CMSIS_device_header */
 
-#define configENABLE_FPU                         0
+#define configENABLE_FPU                         1
 #define configENABLE_MPU                         0
 
 #define configUSE_PREEMPTION                     1
@@ -71,7 +71,7 @@
 #define configCPU_CLOCK_HZ                       ( SystemCoreClock )
 #define configTICK_RATE_HZ                       ((TickType_t)1000)
 #define configMAX_PRIORITIES                     ( 56 )
-#define configMINIMAL_STACK_SIZE                 ((uint16_t)128)
+#define configMINIMAL_STACK_SIZE                 ((uint16_t)1024)
 #define configTOTAL_HEAP_SIZE                    ((size_t)80000)
 #define configMAX_TASK_NAME_LEN                  ( 16 )
 #define configGENERATE_RUN_TIME_STATS            1
@@ -85,6 +85,7 @@
 #define configUSE_COUNTING_SEMAPHORES            1
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION  0
 #define configRECORD_STACK_HIGH_ADDRESS          1
+#define configUSE_POSIX_ERRNO                    1
 /* USER CODE BEGIN MESSAGE_BUFFER_LENGTH_TYPE */
 /* Defaults to size_t for backward compatibility, but can be changed
    if lengths will always be less than the number of bytes in a size_t. */
@@ -99,7 +100,7 @@
 #define configUSE_TIMERS                         1
 #define configTIMER_TASK_PRIORITY                ( 2 )
 #define configTIMER_QUEUE_LENGTH                 10
-#define configTIMER_TASK_STACK_DEPTH             256
+#define configTIMER_TASK_STACK_DEPTH             2048
 
 /* The following flag must be enabled only when using newlib */
 #define configUSE_NEWLIB_REENTRANT          1
@@ -125,6 +126,7 @@ to exclude the API function. */
 #define INCLUDE_xTimerPendFunctionCall       1
 #define INCLUDE_xQueueGetMutexHolder         1
 #define INCLUDE_uxTaskGetStackHighWaterMark  1
+#define INCLUDE_uxTaskGetStackHighWaterMark2 1
 #define INCLUDE_xTaskGetCurrentTaskHandle    1
 #define INCLUDE_eTaskGetState                1
 

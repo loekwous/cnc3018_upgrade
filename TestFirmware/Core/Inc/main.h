@@ -59,6 +59,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define END_SWITCH_Pin GPIO_PIN_0
+#define END_SWITCH_GPIO_Port GPIOA
+#define END_SWITCH_EXTI_IRQn EXTI0_IRQn
 #define WS2812_PIN_Pin GPIO_PIN_2
 #define WS2812_PIN_GPIO_Port GPIOA
 #define SPI1_CS_Pin GPIO_PIN_4

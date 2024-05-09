@@ -8,10 +8,10 @@
 #ifndef GCODETASK_H_
 #define GCODETASK_H_
 
-namespace Tasks::Gcode{
+namespace Tasks::GCode {
+
+bool Start();
 
 }
-
-
 
 #endif /* GCODETASK_H_ */

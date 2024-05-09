@@ -11,6 +11,7 @@
 #include <cbor.h>
 
 #include "LightTask.h"
+#include "GcodeTask.h"
 
 int _read(int file, char *ptr, int len){
 	return SEGGER_RTT_Read(0, ptr, len);
@@ -36,7 +37,22 @@ extern "C" void StartApplication(void) {
 		Error_Handler();
 	}
 
+	if (!Tasks::GCode::Start()) {
+			fprintf(stderr,"GCode task startup resulted in a failure!\n");
+			Error_Handler();
+		}
+
 	Tasks::Light::SetSystemStatus(Tasks::Light::SystemStatus::OK);
+	Tasks::Light::SetXBrightness(100);
+
+	for(uint8_t x  = 0; x < 101; x++){
+		Tasks::Light::SetXPercentage(x);
+		osDelay(50);
+	}
+
+	for(;;){
+		osDelay(1000);
+	}
 
 	const char *fileName = "lex.cbr";
 	FATFS fs;

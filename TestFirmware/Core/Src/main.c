@@ -26,6 +26,7 @@
 #include <spif.h>
 #include "cbor.h"
 #include "SEGGER_RTT.h"
+#include "SEGGER_SYSVIEW.h"
 #include "Application.h"
 /* USER CODE END Includes */
 
@@ -115,6 +116,8 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
   SEGGER_RTT_Init();
+  SEGGER_SYSVIEW_Conf();
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -386,12 +389,22 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : END_SWITCH_Pin */
+  GPIO_InitStruct.Pin = END_SWITCH_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(END_SWITCH_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : SPI1_CS_Pin */
   GPIO_InitStruct.Pin = SPI1_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(SPI1_CS_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
 }
 

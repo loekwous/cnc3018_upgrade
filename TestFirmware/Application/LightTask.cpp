@@ -9,9 +9,10 @@
 
 #include <cstdio>
 
-#include "cmsis_os.h"
+#include <cmsis_os.h>
 
 #include "Drivers/WS2812B.h"
+#include "Drivers/StackCheckHelper.h"
 
 extern TIM_HandleTypeDef htim2;
 extern DMA_HandleTypeDef hdma_tim2_ch3_up;
@@ -23,6 +24,7 @@ constexpr uint32_t LIGHT_TASK_STACK_SIZE_BYTES = 2048 * 4;
 constexpr osPriority_t LIGHT_TASK_PRIORITY = osPriorityRealtime;
 
 constexpr uint32_t QUEUE_SIZE = 10;
+constexpr uint32_t QUEUE_TIMEOUT_MS = 100;
 
 osThreadId_t threadHandle;
 osThreadAttr_t threadAttributes;
@@ -96,7 +98,9 @@ static void Run(void *arguments) {
 	for (;;) {
 		LightMessage message;
 		if (osMessageQueueGet(queueHandle, &message, nullptr,
-		osWaitForever) == osOK) {
+		pdMS_TO_TICKS(QUEUE_TIMEOUT_MS)) == osOK) {
+
+			Drivers::CheckStackUsage(threadHandle, LIGHT_TASK_STACK_SIZE_BYTES, 40);
 
 			if (message.status != SystemStatus::UNDEFINED) {
 				UpdateSystemState(&ledString, message.status);
